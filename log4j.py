@@ -1,6 +1,6 @@
-# make sure csv of `August Status` & csv of `Current Status` 
+# make sure csv of `Past Status` & csv of `Current Status` 
 # are in same directory as this program
-# and are named `august_status.csv` & `current_status.csv`
+# and are named `past_status.csv` & `current_status.csv`
 
 import pandas as pd
 import numpy as np
@@ -11,10 +11,10 @@ logs = pd.read_csv('./current_status.csv')
 logs_rows = logs.index
 logs_num_rows = len(logs_rows)
 
-# making pandas dataframe of `August Status` logs indexed by IPs
-aug_logs = pd.read_csv('./august_status.csv')
-aug_by_IP = aug_logs.set_index('IP Address')
-aug_IPs = list(aug_by_IP.index)
+# making pandas dataframe of `Past Status` logs indexed by IPs
+past_logs = pd.read_csv('./past_status.csv')
+past_by_IP = past_logs.set_index('IP Address')
+past_IPs = list(past_by_IP.index)
 
 
 # helper functions for reformatting Plugin Outputs
@@ -83,11 +83,11 @@ for i in logs_rows:
     po = logs.loc[i, 'Plugin Output']
     
     # filling in Application, Contact, Vulnerable?, and RESPONSE columns
-    if ip in aug_IPs: 
-        apps[i] = aug_by_IP.loc[ip]['Application']
-        contacts[i] = aug_by_IP.loc[ip]['Contact']
-        vulnerable[i] = aug_by_IP.loc[ip]['Vulnerable?']
-        response[i] = aug_by_IP.loc[ip]['RESPONSE']
+    if ip in past_IPs: 
+        apps[i] = past_by_IP.loc[ip]['Application']
+        contacts[i] = past_by_IP.loc[ip]['Contact']
+        vulnerable[i] = past_by_IP.loc[ip]['Vulnerable?']
+        response[i] = past_by_IP.loc[ip]['RESPONSE']
     else:
         unknown_ips.append(ip)
         
